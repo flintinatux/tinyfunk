@@ -1,0 +1,17 @@
+{
+  "name": "tinyfunk",
+  "version": "0.0.0",
+  "description": "The tiniest of functional libraries",
+  "main": "dist/tinyfunk.js",
+  "author": "flintinatux",
+  "license": "MIT",
+  "scripts": {
+    "build": "uglifyjs index.js -cm --toplevel > dist/tinyfunk.js",
+    "clean": "rm -rf dist && mkdir -p dist",
+    "prebuild": "yarn run clean"
+  },
+  "devDependencies": {
+    "buble": "^0.15.2",
+    "uglify-es": "^3.1.1"
+  }
+}
