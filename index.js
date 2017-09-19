@@ -1,3 +1,5 @@
+const { assign } = Object
+
 // curryN : Number -> (* -> a) -> (* -> a)
 const _curryN = (n, f) =>
   n < 1 ? f : (...args) => {
@@ -13,6 +15,11 @@ const curryN = _curryN(2, _curryN)
 const curry = f =>
   curryN(f.length, f)
 
+// add : Number -> Number -> Number
+const add = curry((a, b) =>
+  a + b
+)
+
 // apply : (* -> a) -> [*] -> a
 const apply = curry((f, args) =>
   f.apply(null, args)
@@ -20,7 +27,7 @@ const apply = curry((f, args) =>
 
 // assoc : String -> a -> { k: v } -> { k: v }
 const assoc = curry((prop, val, obj) => {
-  const res = Object.assign({}, obj)
+  const res = assign({}, obj)
   res[prop] = val
   return res
 })
@@ -46,6 +53,32 @@ const constant = x => () => x
 const converge = curry((after, fs) =>
   compose(apply(after), juxt(fs))
 )
+
+// dissoc : String -> { k: v } -> { k: v }
+const dissoc = curry((key, obj) => {
+  const res = assign({}, obj)
+  delete res[key]
+  return res
+})
+
+// dissocPath : [String] -> { k: v } -> { k: v }
+const dissocPath = curry(([ head, ...tail ], obj) =>
+  !head ? obj :
+  obj[head] == null ? obj :
+  tail.length ? assoc(head, dissocPath(tail, obj[head]), obj) :
+  dissoc(head, obj)
+)
+
+const _xfrm = curry((xfrms, val, key) => {
+  let f = xfrms[key] || identity
+  if (typeof f === 'object') f = evolve(f)
+  return f(val)
+})
+
+// evolve : { k: (v -> v) } -> { k: v } -> { k: v }
+const evolve = curry((xfrms, obj) => {
+  return mapObj(_xfrm(xfrms), obj)
+})
 
 // flip : (a -> b -> c) -> (b -> a -> c)
 const flip = curry((f, x, y) =>
@@ -79,7 +112,7 @@ const match = ((regexp, string) =>
 
 // merge : { k: v } -> { k: v } -> { k: v }
 const merge = curry((a, b) =>
-  Object.assign({}, a, b)
+  assign({}, a, b)
 )
 
 // path : [String] -> { k: v } -> v
@@ -124,6 +157,7 @@ const zipObj = curry((keys, vals) => {
 })
 
 module.exports = {
+  add,
   apply,
   assoc,
   assocPath,
@@ -133,6 +167,9 @@ module.exports = {
   converge,
   curry,
   curryN,
+  dissoc,
+  dissocPath,
+  evolve,
   flip,
   identity,
   juxt,
