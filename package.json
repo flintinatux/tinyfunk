@@ -6,11 +6,13 @@
   "author": "flintinatux",
   "license": "MIT",
   "scripts": {
-    "build": "uglifyjs index.js -cm --toplevel > tinyfunk.js",
+    "build": "uglifyjs src.js -cm --toplevel > tinyfunk.js",
     "clean": "rm -f tinyfunk.js",
-    "prebuild": "yarn run clean"
+    "prewatch": "yarn run build",
+    "watch": "eye --*glob=src.js yarn run build"
   },
   "devDependencies": {
+    "eye": "^0.0.3",
     "uglify-es": "^3.1.1"
   }
 }

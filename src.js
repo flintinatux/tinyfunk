@@ -1,9 +1,13 @@
 const { assign } = Object
 
+// length : [a] -> Number
+const length = list =>
+  list.length
+
 // curryN : Number -> (* -> a) -> (* -> a)
 const _curryN = (n, f) =>
   n < 1 ? f : (...args) => {
-    const left = n - args.length
+    const left = n - length(args)
     return left > 0
       ? _curryN(left, f.bind(null, ...args))
       : f.apply(null, args)
@@ -13,7 +17,7 @@ const curryN = _curryN(2, _curryN)
 
 // curry : (* -> a) -> (* -> a)
 const curry = f =>
-  curryN(f.length, f)
+  curryN(length(f), f)
 
 // add : Number -> Number -> Number
 const add = curry((a, b) =>
@@ -34,12 +38,17 @@ const assoc = curry((prop, val, obj) => {
 
 // assocPath : [String] -> v -> { k: v } -> { k: v }
 const assocPath = curry(([ head, ...tail ], x, obj) =>
-  assoc(head, tail.length ? assocPath(tail, x, obj[head]) : x, obj)
+  assoc(head, length(tail) ? assocPath(tail, x, obj[head]) : x, obj)
+)
+
+// call : (* -> a) -> * -> a
+const call = curryN(2, (f, ...args) =>
+  apply(f, args)
 )
 
 // compose : ((y -> z), ..., (a -> b)) -> a -> z
 const compose = (...fs) =>
-  pipe(...fs.reverse())
+  flip(reduceRight(thrush))(fs)
 
 // concat : Semigroup a => a -> a -> a
 const concat = curry((a, b) =>
@@ -65,7 +74,7 @@ const dissoc = curry((key, obj) => {
 const dissocPath = curry(([ head, ...tail ], obj) =>
   !head ? obj :
   obj[head] == null ? obj :
-  tail.length ? assoc(head, dissocPath(tail, obj[head]), obj) :
+  length(tail) ? assoc(head, dissocPath(tail, obj[head]), obj) :
   dissoc(head, obj)
 )
 
@@ -117,7 +126,7 @@ const merge = curry((a, b) =>
 
 // path : [String] -> { k: v } -> v
 const path = curry(([ head, ...tail ], obj) =>
-  tail.length ? path(tail, obj[head]) : obj[head]
+  length(tail) ? path(tail, obj[head]) : obj[head]
 )
 
 // pipe : ((a -> b), ..., (y -> z)) -> a -> z
@@ -129,9 +138,19 @@ const prop = curry((key, obj) =>
   obj[key]
 )
 
+// props : [k] -> { k: v } -> [v]
+const props = curry((keys, obj) =>
+  map(flip(prop)(obj), keys)
+)
+
 // reduce : Foldable f => (b -> a -> b) -> b -> f a -> b
 const reduce = curry((f, acc, list) =>
   list.reduce(f, acc)
+)
+
+// reduceRight : Foldable f => (b -> a -> b) -> b -> f a -> b
+const reduceRight = curry((f, acc, list) =>
+  list.reduceRight(f, acc)
 )
 
 // replace : RegExp -> String -> String
@@ -149,10 +168,15 @@ const unless = curry((pred, f, x) =>
   pred(x) ? x : f(x)
 )
 
+// when : (a -> Boolean) -> (a -> a) -> a -> a
+const when = curry((pred, f, x) =>
+  pred(x) ? f(x) : x
+)
+
 // zipObj : [k] -> [v] -> { k: v }
 const zipObj = curry((keys, vals) => {
   const res = {}
-  for (let i = 0; i < keys.length; i++) res[keys[i]] = vals[i]
+  for (let i = 0; i < length(keys); i++) res[keys[i]] = vals[i]
   return res
 })
 
@@ -161,6 +185,7 @@ module.exports = {
   apply,
   assoc,
   assocPath,
+  call,
   compose,
   concat,
   constant,
@@ -173,6 +198,7 @@ module.exports = {
   flip,
   identity,
   juxt,
+  length,
   map,
   mapObj,
   match,
@@ -180,9 +206,12 @@ module.exports = {
   path,
   pipe,
   prop,
+  props,
   reduce,
+  reduceRight,
   replace,
   thrush,
   unless,
-  zipObj,
+  when,
+  zipObj
 }

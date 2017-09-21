@@ -1,0 +1,8 @@
+.DS_Store
+.git*
+.yarn*
+/node_modules
+/test
+README.md
+src.js
+yarn.lock
