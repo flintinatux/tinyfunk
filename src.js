@@ -124,6 +124,11 @@ const merge = curry((a, b) =>
   assign({}, a, b)
 )
 
+// multiply : Number -> Number -> Number
+const multiply = curry((a, b) =>
+  a * b
+)
+
 // path : [String] -> { k: v } -> v
 const path = curry(([ head, ...tail ], obj) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
@@ -203,6 +208,7 @@ module.exports = {
   mapObj,
   match,
   merge,
+  multiply,
   path,
   pipe,
   prop,

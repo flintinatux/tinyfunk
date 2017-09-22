@@ -1,6 +1,6 @@
 # tinyfunk
 
-The tiniest of functional libraries.  Currently 724 bytes gzipped.
+The tiniest of functional libraries.  Currently 738 bytes gzipped.
 
 - [Motivation](#motivation)
 - [API](#api)
@@ -67,6 +67,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `mapObj` | `(v -> k -> v) -> { k: v } -> { k: v }` |
 | `match` | `RegExp -> String -> [String]` |
 | `merge` | `{ k: v } -> { k: v } -> { k: v }` |
+| `multiply` | `Number -> Number -> Number` |
 | `path` | `[String] -> { k: v } -> v` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
 | `prop` | `String -> { k: v } -> v` |
