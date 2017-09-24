@@ -1,6 +1,6 @@
 # tinyfunk
 
-The tiniest of functional libraries.  Currently 738 bytes gzipped.
+The tiniest of functional libraries.  Currently 742 bytes gzipped.
 
 - [Motivation](#motivation)
 - [API](#api)

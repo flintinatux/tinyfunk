@@ -115,7 +115,7 @@ const mapObj = curry((f, obj) => {
 })
 
 // match : RegExp -> String -> [String | Undefined]
-const match = ((regexp, string) =>
+const match = curry((regexp, string) =>
   string.match(regexp) || []
 )
 

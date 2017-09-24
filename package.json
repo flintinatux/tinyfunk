@@ -8,6 +8,7 @@
   "scripts": {
     "build": "uglifyjs src.js -cm --toplevel > tinyfunk.js",
     "clean": "rm -f tinyfunk.js",
+    "pretest": "yarn run build",
     "prewatch": "yarn run build",
     "test": "mocha --reporter=dot",
     "watch": "eye --*glob=src.js yarn run build"
