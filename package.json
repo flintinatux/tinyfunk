@@ -2,21 +2,35 @@
   "name": "tinyfunk",
   "version": "0.0.0",
   "description": "The tiniest of functional libraries",
-  "main": "tinyfunk.js",
+  "main": "src.js",
   "author": "flintinatux",
   "license": "MIT",
+  "nyc": {
+    "check-coverage": true,
+    "include": ["src.js"],
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100
+  },
   "scripts": {
-    "build": "uglifyjs src.js -cm --toplevel > tinyfunk.js",
+    "build": "./node_modules/uglify-es/bin/uglifyjs src.js -cm --toplevel > tinyfunk.js",
     "clean": "rm -f tinyfunk.js",
-    "pretest": "yarn run build",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint src.js test",
     "prewatch": "yarn run build",
     "test": "mocha --reporter=dot",
+    "test:ci": "yarn lint && yarn test:coverage && yarn coverage",
+    "test:coverage": "nyc yarn test",
     "watch": "eye --*glob=src.js yarn run build"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "coveralls": "^2.13.1",
+    "eslint": "^4.7.2",
     "eye": "^0.0.3",
     "mocha": "^3.5.3",
+    "nyc": "^11.2.1",
     "uglify-es": "^3.1.1"
   }
 }
