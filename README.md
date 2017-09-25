@@ -54,12 +54,12 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | -------- | --------- |
 | `add` | `Number -> Number -> Number` |
 | `apply` | `(* -> a) -> [*] -> a` |
-| `assoc` | `String -> a -> { k: v } -> { k: v }` |
+| `assoc` | `String -> v -> { k: v } -> { k: v }` |
 | `assocPath` | `[String] -> v -> { k: v } -> { k: v }` |
 | `call` | `(* -> a) -> * -> a` |
 | `compose` | `((y -> z), ..., (a -> b)) -> a -> z` |
 | `concat` | `Semigroup a => a -> a -> a` |
-| `constant` | `a -> b -> a` |
+| `constant` | `a -> () -> a` |
 | `converge` | `(b... -> c) -> [(a -> b)] -> a -> c` |
 | `curry` | `(* -> a) -> (* -> a)` |
 | `curryN` | `Number -> (* -> a) -> (* -> a)` |
@@ -81,7 +81,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `props` | `[k] -> { k: v } -> [v]` |
 | `reduce` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
 | `reduceRight` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
-| `replace` | `RegExp -> String -> String` |
+| `replace` | `RegExp -> String -> String -> String` |
 | `thrush` | `a -> (a -> b) -> b` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `when` | `(a -> Boolean) -> (a -> a) -> a -> a` |

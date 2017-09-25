@@ -29,7 +29,7 @@ const apply = curry((f, args) =>
   f.apply(null, args)
 )
 
-// assoc : String -> a -> { k: v } -> { k: v }
+// assoc : String -> v -> { k: v } -> { k: v }
 const assoc = curry((prop, val, obj) => {
   const res = assign({}, obj)
   res[prop] = val
@@ -55,7 +55,7 @@ const concat = curry((a, b) =>
   a.concat(b)
 )
 
-// constant : a -> b -> a
+// constant : a -> () -> a
 const constant = x => () => x
 
 // converge : (b... -> c) -> [(a -> b)] -> a -> c
@@ -158,7 +158,7 @@ const reduceRight = curry((f, acc, list) =>
   list.reduceRight(f, acc)
 )
 
-// replace : RegExp -> String -> String
+// replace : RegExp -> String -> String -> String
 const replace = curry((regexp, replacement, string) =>
   string.replace(regexp, replacement)
 )
