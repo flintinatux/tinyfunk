@@ -24,6 +24,11 @@ const add = curry((a, b) =>
   a + b
 )
 
+// append : a -> [a] -> [a]
+const append = curry((last, init) =>
+  concat(init, [ last ])
+)
+
 // apply : (* -> a) -> [*] -> a
 const apply = curry((f, args) =>
   f.apply(null, args)
@@ -138,6 +143,11 @@ const path = curry(([ head, ...tail ], obj) =>
 const pipe = (...fs) =>
   flip(reduce(thrush))(fs)
 
+// prepend : a -> [a] -> [a]
+const prepend = curry((head, tail) =>
+  concat([ head ], tail)
+)
+
 // prop : String -> { k: v } -> v
 const prop = curry((key, obj) =>
   obj[key]
@@ -187,6 +197,7 @@ const zipObj = curry((keys, vals) => {
 
 module.exports = {
   add,
+  append,
   apply,
   assoc,
   assocPath,
@@ -211,6 +222,7 @@ module.exports = {
   multiply,
   path,
   pipe,
+  prepend,
   prop,
   props,
   reduce,

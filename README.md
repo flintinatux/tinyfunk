@@ -1,6 +1,6 @@
 # tinyfunk [![Build Status](https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master)](https://travis-ci.org/flintinatux/tinyfunk) [![Coverage Status](https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master)](https://coveralls.io/github/flintinatux/tinyfunk?branch=master)
 
-The tiniest of functional libraries.  Currently 742 bytes gzipped.
+The tiniest of functional libraries.  Currently 769 bytes gzipped.
 
 - [Motivation](#motivation)
 - [Caveat emptor](#caveat-emptor)
@@ -53,6 +53,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | Function | Signature |
 | -------- | --------- |
 | `add` | `Number -> Number -> Number` |
+| `append` | `a -> [a] -> [a]` |
 | `apply` | `(* -> a) -> [*] -> a` |
 | `assoc` | `String -> v -> { k: v } -> { k: v }` |
 | `assocPath` | `[String] -> v -> { k: v } -> { k: v }` |
@@ -77,6 +78,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `multiply` | `Number -> Number -> Number` |
 | `path` | `[String] -> { k: v } -> v` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
+| `prepend` | `a -> [a] -> [a]` |
 | `prop` | `String -> { k: v } -> v` |
 | `props` | `[k] -> { k: v } -> [v]` |
 | `reduce` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
