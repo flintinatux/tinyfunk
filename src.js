@@ -1,4 +1,8 @@
-const { assign } = Object
+// assign : { k: v } -> { k: v } -> { k: v }
+const assign = (a, b) => {
+  for (let key in b) a[key] = b[key]
+  return a
+}
 
 // length : [a] -> Number
 const length = list =>
@@ -126,7 +130,7 @@ const match = curry((regexp, string) =>
 
 // merge : { k: v } -> { k: v } -> { k: v }
 const merge = curry((a, b) =>
-  assign({}, a, b)
+  reduce(assign, {}, [ a, b ])
 )
 
 // multiply : Number -> Number -> Number
