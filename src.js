@@ -1,4 +1,8 @@
-const { assign } = Object
+// assign : { k: v } -> { k: v } -> { k: v }
+const assign = (a, b) => {
+  for (let key in b) a[key] = b[key]
+  return a
+}
 
 // length : [a] -> Number
 const length = list =>
@@ -22,6 +26,11 @@ const curry = f =>
 // add : Number -> Number -> Number
 const add = curry((a, b) =>
   a + b
+)
+
+// append : a -> [a] -> [a]
+const append = curry((last, init) =>
+  concat(init, [ last ])
 )
 
 // apply : (* -> a) -> [*] -> a
@@ -121,7 +130,7 @@ const match = curry((regexp, string) =>
 
 // merge : { k: v } -> { k: v } -> { k: v }
 const merge = curry((a, b) =>
-  assign({}, a, b)
+  reduce(assign, {}, [ a, b ])
 )
 
 // multiply : Number -> Number -> Number
@@ -137,6 +146,11 @@ const path = curry(([ head, ...tail ], obj) =>
 // pipe : ((a -> b), ..., (y -> z)) -> a -> z
 const pipe = (...fs) =>
   flip(reduce(thrush))(fs)
+
+// prepend : a -> [a] -> [a]
+const prepend = curry((head, tail) =>
+  concat([ head ], tail)
+)
 
 // prop : String -> { k: v } -> v
 const prop = curry((key, obj) =>
@@ -187,6 +201,7 @@ const zipObj = curry((keys, vals) => {
 
 module.exports = {
   add,
+  append,
   apply,
   assoc,
   assocPath,
@@ -211,6 +226,7 @@ module.exports = {
   multiply,
   path,
   pipe,
+  prepend,
   prop,
   props,
   reduce,
