@@ -195,7 +195,7 @@ const when = curry((pred, f, x) =>
 // zipObj : [k] -> [v] -> { k: v }
 const zipObj = curry((keys, vals) => {
   const res = {}
-  for (let i = 0; i < length(keys); i++) res[keys[i]] = vals[i]
+  for (let i = length(keys); i--;) res[keys[i]] = vals[i]
   return res
 })
 

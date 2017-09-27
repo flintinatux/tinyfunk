@@ -1,6 +1,6 @@
 # tinyfunk [![Build Status](https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master)](https://travis-ci.org/flintinatux/tinyfunk) [![Coverage Status](https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master)](https://coveralls.io/github/flintinatux/tinyfunk?branch=master)
 
-The tiniest of functional libraries.  Currently 785 bytes gzipped.
+The tiniest of functional libraries.  Currently 782 bytes gzipped.
 
 - [Motivation](#motivation)
 - [Caveat emptor](#caveat-emptor)
