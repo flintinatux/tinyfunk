@@ -1,8 +1,11 @@
 .DS_Store
+.eslintrc.js
 .git*
+.travis.yml
 .yarn*
+/.nyc_output
+/coverage
 /node_modules
 /test
 README.md
-src.js
 yarn.lock
