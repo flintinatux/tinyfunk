@@ -1,18 +1,31 @@
-# tinyfunk
-[![tinyfunk](https://img.shields.io/npm/v/tinyfunk.svg)](https://www.npmjs.com/package/tinyfunk)
-[![Build Status](https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master)](https://travis-ci.org/flintinatux/tinyfunk)
-[![Coverage Status](https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master)](https://coveralls.io/github/flintinatux/tinyfunk?branch=master)
-[![NSP Status](https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge)](https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d)
-
-The tiniest of functional libraries.  Currently 795 bytes gzipped.
-
-- [Motivation](#motivation)
-- [Caveat emptor](#caveat-emptor)
-- [API](#api)
+<p align="center" style="background:#c1282d;padding:20px;">
+  <a href="#"><img src="https://user-images.githubusercontent.com/888052/31184960-cef1a1a4-a8f8-11e7-88e8-5d740281014f.png" alt="tinyfunk" style="max-width:100%;"></a>
+</p>
+<p align="center">
+  The tiniest of functional libraries.  Currently 795 bytes gzipped.
+</p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/tinyfunk">
+    <img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;">
+  </a>
+  <a href="https://www.npmjs.com/package/tinyfunk">
+    <img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;">
+  </a>
+  <a href="https://travis-ci.org/flintinatux/tinyfunk">
+    <img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;">
+  </a>
+  <br />
+  <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master">
+    <img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;">
+  </a>
+  <a href="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d">
+    <img src="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge" alt="NSP Status" style="max-width:100%;">
+  </a>
+</p>
 
 ## Motivation
 
-So often in an attempt to reduce bundle size when importing larger functional libraries (such as [Ramda](https://www.npmjs.com/package/ramda)) into a frontend project, it is common to directly import only the bits that you need, like this:
+Most popular functional libraries, like [Ramda](https://www.npmjs.com/package/ramda), are quite large.  To use them in a frontend project, it's common to import only the bits you need (to keep the bundle size down) like this:
 
 ```js
 const assoc = require('ramda/src/assoc')
