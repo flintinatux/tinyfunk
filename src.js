@@ -177,6 +177,11 @@ const replace = curry((regexp, replacement, string) =>
   string.replace(regexp, replacement)
 )
 
+// tap : (a -> b) -> a -> a
+const tap = curry((f, x) =>
+  (f(x), x)
+)
+
 // thrush : a -> (a -> b) -> b
 const thrush = curry((x, f) =>
   f(x)
@@ -232,6 +237,7 @@ module.exports = {
   reduce,
   reduceRight,
   replace,
+  tap,
   thrush,
   unless,
   when,
