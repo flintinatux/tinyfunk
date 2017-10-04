@@ -1,6 +1,6 @@
 # tinyfunk [![Build Status](https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master)](https://travis-ci.org/flintinatux/tinyfunk) [![Coverage Status](https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master)](https://coveralls.io/github/flintinatux/tinyfunk?branch=master)
 
-The tiniest of functional libraries.  Currently 782 bytes gzipped.
+The tiniest of functional libraries.  Currently 795 bytes gzipped.
 
 - [Motivation](#motivation)
 - [Caveat emptor](#caveat-emptor)
@@ -84,6 +84,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `reduce` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
 | `reduceRight` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
 | `replace` | `RegExp -> String -> String -> String` |
+| `tap` | `(a -> b) -> a -> a` |
 | `thrush` | `a -> (a -> b) -> b` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `when` | `(a -> Boolean) -> (a -> a) -> a -> a` |

@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@articulate/spy@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@articulate/spy/-/spy-0.0.1.tgz#2da9fdb919075fa5fc3868017e17b43b8528a399"
+
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
