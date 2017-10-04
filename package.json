@@ -29,8 +29,8 @@
     "lint": "eslint src.js test",
     "prewatch": "yarn run build",
     "test": "mocha --reporter=dot",
-    "test:ci": "yarn lint && yarn test:coverage && yarn coverage",
-    "test:coverage": "nyc yarn test",
+    "test:ci": "yarn run lint && yarn run test:coverage && yarn run coverage",
+    "test:coverage": "nyc yarn run test",
     "watch": "eye --*glob=src.js yarn run build"
   },
   "devDependencies": {
