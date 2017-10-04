@@ -1,6 +1,8 @@
 # tinyfunk
-
-[![Build Status](https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master)](https://travis-ci.org/flintinatux/tinyfunk) [![Coverage Status](https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master)](https://coveralls.io/github/flintinatux/tinyfunk?branch=master)
+[![tinyfunk](https://img.shields.io/npm/v/tinyfunk.svg)](https://www.npmjs.com/package/tinyfunk)
+[![Build Status](https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master)](https://travis-ci.org/flintinatux/tinyfunk)
+[![Coverage Status](https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master)](https://coveralls.io/github/flintinatux/tinyfunk?branch=master)
+[![NSP Status](https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge)](https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d)
 
 The tiniest of functional libraries.  Currently 795 bytes gzipped.
 
