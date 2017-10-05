@@ -58,9 +58,11 @@ const I=r(b(B(E)))
 
 In an effort to keep `tinyfunk` lean and mean - and most of all, tiny - I've taken a few shortcuts.
 
-1.  **None of the exported functions perform type-checking of arguments.**  If type-checking is a runtime debug tool you tend to lean on, then you'll need to look elsewhere.
-2.  **Many of the function combinators only support unary functions.**  This includes `compose`, `converge`, `juxt`, `pipe`, `thrush`, etc.  Unary functions are easily composable, readily portable, and so much simpler (ie: tinier) to support.
-3.  **Unlike other popular FP libraries, each exported function only has a single job.**  For example, Ramda's `map` supports "mapping" over functors, objects, and even functions.  In `tinyfunk`, those various jobs are supported instead by `map`, `mapObj`, and `compose` respectfully.  So be sure to use the right tool for the job at hand.
+1.  **None of the exported functions perform type-checking of arguments.**<br/>If type-checking is a runtime debug tool you tend to lean on, then you'll need to look elsewhere.
+
+2.  **Many of the function combinators only support unary functions.**<br/>This includes `compose`, `converge`, `juxt`, `pipe`, `thrush`, etc.  Unary functions are easily composable, readily portable, and so much simpler (ie: tinier) to support.
+
+3.  **Unlike other popular FP libraries, each exported function only has a single job.**<br/>For example, Ramda's `map` supports "mapping" over functors, objects, and even functions.  In `tinyfunk`, those various jobs are supported instead by `map`, `mapObj`, and `compose` respectfully.  So be sure to use the right tool for the job at hand.
 
 ## API
 
