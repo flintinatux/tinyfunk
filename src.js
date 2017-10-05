@@ -8,14 +8,18 @@ const assign = (a, b) => {
 const length = list =>
   list.length
 
+// unapply : ([a] -> b) -> * -> b
+const unapply = f => (...args) =>
+  f(args)
+
 // curryN : Number -> (* -> a) -> (* -> a)
 const _curryN = (n, f) =>
-  n < 1 ? f : (...args) => {
+  n < 1 ? f : unapply(args => {
     const left = n - length(args)
     return left > 0
       ? _curryN(left, f.bind(null, ...args))
       : f.apply(null, args)
-  }
+  })
 
 const curryN = _curryN(2, _curryN)
 
@@ -54,10 +58,6 @@ const assocPath = curry(([ head, ...tail ], x, obj) =>
 const call = curryN(2, (f, ...args) =>
   apply(f, args)
 )
-
-// compose : ((y -> z), ..., (a -> b)) -> a -> z
-const compose = (...fs) =>
-  flip(reduceRight(thrush))(fs)
 
 // concat : Semigroup a => a -> a -> a
 const concat = curry((a, b) =>
@@ -143,10 +143,6 @@ const path = curry(([ head, ...tail ], obj) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
 )
 
-// pipe : ((a -> b), ..., (y -> z)) -> a -> z
-const pipe = (...fs) =>
-  flip(reduce(thrush))(fs)
-
 // prepend : a -> [a] -> [a]
 const prepend = curry((head, tail) =>
   concat([ head ], tail)
@@ -204,6 +200,12 @@ const zipObj = curry((keys, vals) => {
   return res
 })
 
+// compose : ((y -> z), ..., (a -> b)) -> a -> z
+const compose = unapply(flip(reduceRight(thrush)))
+
+// pipe : ((a -> b), ..., (y -> z)) -> a -> z
+const pipe = unapply(flip(reduce(thrush)))
+
 module.exports = {
   add,
   append,
@@ -239,6 +241,7 @@ module.exports = {
   replace,
   tap,
   thrush,
+  unapply,
   unless,
   when,
   zipObj

@@ -2,7 +2,7 @@
   <a href="#"><img src="https://user-images.githubusercontent.com/888052/31184960-cef1a1a4-a8f8-11e7-88e8-5d740281014f.png" alt="tinyfunk" style="max-width:100%;"></a>
 </p>
 <p align="center">
-  The tiniest of functional libraries.  Currently 795 bytes gzipped.
+  The tiniest of functional libraries.  Currently 803 bytes gzipped.
 </p>
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk">
@@ -45,14 +45,13 @@ const { assoc, map, merge } = require('tinyfunk')
 Where possible, it also composes more complex functions by reusing basic ones.  A good example is `compose`, implemented as so:
 
 ```js
-const compose = (...fs) =>
-  flip(reduceRight(thrush))(fs)
+const compose = unapply(flip(reduceRight(thrush)))
 ```
 
 With [`uglify-es`](https://www.npmjs.com/package/uglify-es), this mangles down to the following.  I doubt you'll find a smaller implementation.
 
 ```js
-const u=(...e)=>b(N(q))(e)
+const I=r(b(B(E)))
 ```
 
 ## Caveat emptor
