@@ -2,7 +2,7 @@
   <a href="#"><img src="https://user-images.githubusercontent.com/888052/31184960-cef1a1a4-a8f8-11e7-88e8-5d740281014f.png" alt="tinyfunk" style="max-width:100%;"></a>
 </p>
 <p align="center">
-  The tiniest of functional libraries.  Currently 803 bytes gzipped.
+  The tiniest of functional libraries.  Currently 822 bytes gzipped.
 </p>
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk">
@@ -92,6 +92,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `match` | `RegExp -> String -> [String]` |
 | `merge` | `{ k: v } -> { k: v } -> { k: v }` |
 | `multiply` | `Number -> Number -> Number` |
+| `partial` | `(* -> a) -> [*] -> * -> a` |
 | `path` | `[String] -> { k: v } -> v` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
 | `prepend` | `a -> [a] -> [a]` |
@@ -102,6 +103,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `replace` | `RegExp -> String -> String -> String` |
 | `tap` | `(a -> b) -> a -> a` |
 | `thrush` | `a -> (a -> b) -> b` |
+| `unapply` | `([a] -> b) -> * -> b` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `when` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `zipObj` | `[k] -> [v] -> { k: v }` |

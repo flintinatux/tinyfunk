@@ -1,8 +1,12 @@
-// assign : { k: v } -> { k: v } -> { k: v }
-const assign = (a, b) => {
+// _assign : ({ k: v }, { k: v }) -> { k: v }
+const _assign = (a, b) => {
   for (let key in b) a[key] = b[key]
   return a
 }
+
+// _partial : ((* -> a), [*]) -> * -> a
+const _partial = (f, args) =>
+  f.bind(null, ...args)
 
 // length : [a] -> Number
 const length = list =>
@@ -17,7 +21,7 @@ const _curryN = (n, f) =>
   n < 1 ? f : unapply(args => {
     const left = n - length(args)
     return left > 0
-      ? _curryN(left, f.bind(null, ...args))
+      ? _curryN(left, _partial(f, args))
       : f.apply(null, args)
   })
 
@@ -44,7 +48,7 @@ const apply = curry((f, args) =>
 
 // assoc : String -> v -> { k: v } -> { k: v }
 const assoc = curry((prop, val, obj) => {
-  const res = assign({}, obj)
+  const res = _assign({}, obj)
   res[prop] = val
   return res
 })
@@ -74,7 +78,7 @@ const converge = curry((after, fs) =>
 
 // dissoc : String -> { k: v } -> { k: v }
 const dissoc = curry((key, obj) => {
-  const res = assign({}, obj)
+  const res = _assign({}, obj)
   delete res[key]
   return res
 })
@@ -130,13 +134,16 @@ const match = curry((regexp, string) =>
 
 // merge : { k: v } -> { k: v } -> { k: v }
 const merge = curry((a, b) =>
-  reduce(assign, {}, [ a, b ])
+  reduce(_assign, {}, [ a, b ])
 )
 
 // multiply : Number -> Number -> Number
 const multiply = curry((a, b) =>
   a * b
 )
+
+// partial : (* -> a) -> [*] -> * -> a
+const partial = curry(_partial)
 
 // path : [String] -> { k: v } -> v
 const path = curry(([ head, ...tail ], obj) =>
@@ -231,6 +238,7 @@ module.exports = {
   match,
   merge,
   multiply,
+  partial,
   path,
   pipe,
   prepend,
