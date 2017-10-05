@@ -1,21 +1,29 @@
-// assign : { k: v } -> { k: v } -> { k: v }
-const assign = (a, b) => {
+// _assign : ({ k: v }, { k: v }) -> { k: v }
+const _assign = (a, b) => {
   for (let key in b) a[key] = b[key]
   return a
 }
+
+// _partial : ((* -> a), [*]) -> * -> a
+const _partial = (f, args) =>
+  f.bind(null, ...args)
 
 // length : [a] -> Number
 const length = list =>
   list.length
 
+// unapply : ([a] -> b) -> * -> b
+const unapply = f => (...args) =>
+  f(args)
+
 // curryN : Number -> (* -> a) -> (* -> a)
 const _curryN = (n, f) =>
-  n < 1 ? f : (...args) => {
+  n < 1 ? f : unapply(args => {
     const left = n - length(args)
     return left > 0
-      ? _curryN(left, f.bind(null, ...args))
+      ? _curryN(left, _partial(f, args))
       : f.apply(null, args)
-  }
+  })
 
 const curryN = _curryN(2, _curryN)
 
@@ -40,7 +48,7 @@ const apply = curry((f, args) =>
 
 // assoc : String -> v -> { k: v } -> { k: v }
 const assoc = curry((prop, val, obj) => {
-  const res = assign({}, obj)
+  const res = _assign({}, obj)
   res[prop] = val
   return res
 })
@@ -54,10 +62,6 @@ const assocPath = curry(([ head, ...tail ], x, obj) =>
 const call = curryN(2, (f, ...args) =>
   apply(f, args)
 )
-
-// compose : ((y -> z), ..., (a -> b)) -> a -> z
-const compose = (...fs) =>
-  flip(reduceRight(thrush))(fs)
 
 // concat : Semigroup a => a -> a -> a
 const concat = curry((a, b) =>
@@ -74,7 +78,7 @@ const converge = curry((after, fs) =>
 
 // dissoc : String -> { k: v } -> { k: v }
 const dissoc = curry((key, obj) => {
-  const res = assign({}, obj)
+  const res = _assign({}, obj)
   delete res[key]
   return res
 })
@@ -130,7 +134,7 @@ const match = curry((regexp, string) =>
 
 // merge : { k: v } -> { k: v } -> { k: v }
 const merge = curry((a, b) =>
-  reduce(assign, {}, [ a, b ])
+  reduce(_assign, {}, [ a, b ])
 )
 
 // multiply : Number -> Number -> Number
@@ -138,14 +142,13 @@ const multiply = curry((a, b) =>
   a * b
 )
 
+// partial : (* -> a) -> [*] -> * -> a
+const partial = curry(_partial)
+
 // path : [String] -> { k: v } -> v
 const path = curry(([ head, ...tail ], obj) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
 )
-
-// pipe : ((a -> b), ..., (y -> z)) -> a -> z
-const pipe = (...fs) =>
-  flip(reduce(thrush))(fs)
 
 // prepend : a -> [a] -> [a]
 const prepend = curry((head, tail) =>
@@ -204,6 +207,12 @@ const zipObj = curry((keys, vals) => {
   return res
 })
 
+// compose : ((y -> z), ..., (a -> b)) -> a -> z
+const compose = unapply(flip(reduceRight(thrush)))
+
+// pipe : ((a -> b), ..., (y -> z)) -> a -> z
+const pipe = unapply(flip(reduce(thrush)))
+
 module.exports = {
   add,
   append,
@@ -229,6 +238,7 @@ module.exports = {
   match,
   merge,
   multiply,
+  partial,
   path,
   pipe,
   prepend,
@@ -239,6 +249,7 @@ module.exports = {
   replace,
   tap,
   thrush,
+  unapply,
   unless,
   when,
   zipObj

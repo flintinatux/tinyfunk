@@ -2,7 +2,7 @@
   <a href="#"><img src="https://user-images.githubusercontent.com/888052/31184960-cef1a1a4-a8f8-11e7-88e8-5d740281014f.png" alt="tinyfunk" style="max-width:100%;"></a>
 </p>
 <p align="center">
-  The tiniest of functional libraries.  Currently 795 bytes gzipped.
+  The tiniest of functional libraries.  Currently 822 bytes gzipped.
 </p>
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk">
@@ -45,23 +45,24 @@ const { assoc, map, merge } = require('tinyfunk')
 Where possible, it also composes more complex functions by reusing basic ones.  A good example is `compose`, implemented as so:
 
 ```js
-const compose = (...fs) =>
-  flip(reduceRight(thrush))(fs)
+const compose = unapply(flip(reduceRight(thrush)))
 ```
 
 With [`uglify-es`](https://www.npmjs.com/package/uglify-es), this mangles down to the following.  I doubt you'll find a smaller implementation.
 
 ```js
-const u=(...e)=>b(N(q))(e)
+const I=r(b(B(E)))
 ```
 
 ## Caveat emptor
 
 In an effort to keep `tinyfunk` lean and mean - and most of all, tiny - I've taken a few shortcuts.
 
-1.  **None of the exported functions perform type-checking of arguments.**  If type-checking is a runtime debug tool you tend to lean on, then you'll need to look elsewhere.
-2.  **Many of the function combinators only support unary functions.**  This includes `compose`, `converge`, `juxt`, `pipe`, `thrush`, etc.  Unary functions are easily composable, readily portable, and so much simpler (ie: tinier) to support.
-3.  **Unlike other popular FP libraries, each exported function only has a single job.**  For example, Ramda's `map` supports "mapping" over functors, objects, and even functions.  In `tinyfunk`, those various jobs are supported instead by `map`, `mapObj`, and `compose` respectfully.  So be sure to use the right tool for the job at hand.
+1.  **None of the exported functions perform type-checking of arguments.**<br/>If type-checking is a runtime debug tool you tend to lean on, then you'll need to look elsewhere.
+
+2.  **Many of the function combinators only support unary functions.**<br/>This includes `compose`, `converge`, `juxt`, `pipe`, `thrush`, etc.  Unary functions are easily composable, readily portable, and so much simpler (ie: tinier) to support.
+
+3.  **Unlike other popular FP libraries, each exported function only has a single job.**<br/>For example, Ramda's `map` supports "mapping" over functors, objects, and even functions.  In `tinyfunk`, those various jobs are supported instead by `map`, `mapObj`, and `compose` respectfully.  So be sure to use the right tool for the job at hand.
 
 ## API
 
@@ -93,6 +94,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `match` | `RegExp -> String -> [String]` |
 | `merge` | `{ k: v } -> { k: v } -> { k: v }` |
 | `multiply` | `Number -> Number -> Number` |
+| `partial` | `(* -> a) -> [*] -> * -> a` |
 | `path` | `[String] -> { k: v } -> v` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
 | `prepend` | `a -> [a] -> [a]` |
@@ -103,6 +105,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `replace` | `RegExp -> String -> String -> String` |
 | `tap` | `(a -> b) -> a -> a` |
 | `thrush` | `a -> (a -> b) -> b` |
+| `unapply` | `([a] -> b) -> * -> b` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `when` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `zipObj` | `[k] -> [v] -> { k: v }` |
