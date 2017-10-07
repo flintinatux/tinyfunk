@@ -1,26 +1,19 @@
 <p align="center" style="background:#c1282d;padding:20px;">
-  <a href="#"><img src="https://user-images.githubusercontent.com/888052/31184960-cef1a1a4-a8f8-11e7-88e8-5d740281014f.png" alt="tinyfunk" style="max-width:100%;"></a>
+  <a href="#">
+    <img src="https://user-images.githubusercontent.com/888052/31304558-89193d0e-aaf1-11e7-8b46-3c2cd35347cf.png" alt="tinyfunk" style="max-width:100%;">
+  </a>
 </p>
 <p align="center">
-  The tiniest of functional libraries.  Currently 822 bytes gzipped.
+  The tiniest of functional libraries.
 </p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/tinyfunk">
-    <img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;">
-  </a>
-  <a href="https://www.npmjs.com/package/tinyfunk">
-    <img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;">
-  </a>
-  <a href="https://travis-ci.org/flintinatux/tinyfunk">
-    <img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;">
-  </a>
+  <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;"></a>
+  <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;"></a>
+  <a href="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d"><img src="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge" alt="NSP Status" style="max-width:100%;"></a>
   <br />
-  <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master">
-    <img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;">
-  </a>
-  <a href="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d">
-    <img src="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge" alt="NSP Status" style="max-width:100%;">
-  </a>
+  <a href="#"><img src="https://img.shields.io/badge/size-822%20B-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
+  <a href="https://travis-ci.org/flintinatux/tinyfunk"><img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;"></a>
+  <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master"><img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;"></a>
 </p>
 
 ## Motivation
