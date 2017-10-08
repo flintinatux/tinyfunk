@@ -4,6 +4,7 @@
 .travis.yml
 .yarn*
 /.nyc_output
+/assets
 /coverage
 /node_modules
 /test
