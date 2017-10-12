@@ -27,6 +27,7 @@
     "clean": "rm -f tinyfunk.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint src.js test",
+    "postbuild": "gzip-size tinyfunk.js",
     "prewatch": "yarn run build",
     "test": "mocha --reporter=dot",
     "test:ci": "yarn run lint && yarn run test:coverage && yarn run coverage",
@@ -39,6 +40,7 @@
     "coveralls": "^2.13.1",
     "eslint": "^4.7.2",
     "eye": "^0.0.3",
+    "gzip-size-cli": "^2.1.0",
     "mocha": "^3.5.3",
     "nyc": "^11.2.1",
     "uglify-es": "^3.1.1"

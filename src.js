@@ -4,9 +4,24 @@ const _assign = (a, b) => {
   return a
 }
 
+// _has : ({ k: v }, String) -> Boolean
+const _has = (obj, key) =>
+  obj.hasOwnProperty(key)
+
+// _index : ({ k: Number }, String) -> { k: Number }
+const _index = (idx, key) =>
+  assoc(key, 1, idx)
+
 // _partial : ((* -> a), [*]) -> * -> a
 const _partial = (f, args) =>
   f.bind(null, ...args)
+
+// _xfrm : { k: (v -> v) } -> v -> k -> v
+const _xfrm = curry((xfrms, val, key) => {
+  let f = xfrms[key] || identity
+  if (typeof f === 'object') f = evolve(f)
+  return f(val)
+})
 
 // length : [a] -> Number
 const length = list =>
@@ -91,16 +106,15 @@ const dissocPath = curry(([ head, ...tail ], obj) =>
   dissoc(head, obj)
 )
 
-const _xfrm = curry((xfrms, val, key) => {
-  let f = xfrms[key] || identity
-  if (typeof f === 'object') f = evolve(f)
-  return f(val)
-})
-
 // evolve : { k: (v -> v) } -> { k: v } -> { k: v }
 const evolve = curry((xfrms, obj) => {
   return mapObj(_xfrm(xfrms), obj)
 })
+
+// filter : (a -> Boolean) -> [a] -> [a]
+const filter = curry((pred, list) =>
+  list.filter(pred)
+)
 
 // flip : (a -> b -> c) -> (b -> a -> c)
 const flip = curry((f, x, y) =>
@@ -110,10 +124,22 @@ const flip = curry((f, x, y) =>
 // identity : a -> a
 const identity = x => x
 
+// join : String -> [a] -> String
+const join = curry((sep, list) =>
+  list.join(sep)
+)
+
 // juxt : [(a -> b)] -> a -> [b]
 const juxt = curry((fs, x) =>
   map(thrush(x), fs)
 )
+
+// keys : { k: v } -> [k]
+const keys = obj => {
+  const res = []
+  for (let key in obj) if (_has(obj, key)) res.push(key)
+  return res
+}
 
 // map : Functor f => (a -> b) -> f a -> f b
 const map = curry((f, functor) =>
@@ -141,6 +167,17 @@ const merge = curry((a, b) =>
 const multiply = curry((a, b) =>
   a * b
 )
+
+// not : a -> a
+const not = a => !a
+
+// omit : [String] -> { k: v } -> { k: v }
+const omit = curry((keys, obj) => {
+  const idx = reduce(_index, {}, keys)
+  const res = {}
+  for (let key in obj) if (!idx[key]) res[key] = obj[key]
+  return res
+})
 
 // partial : (* -> a) -> [*] -> * -> a
 const partial = curry(_partial)
@@ -170,6 +207,12 @@ const reduce = curry((f, acc, list) =>
   list.reduce(f, acc)
 )
 
+// reduceObj : (a -> v -> k -> a) -> a -> { k: v } -> a
+const reduceObj = curry((f, acc, obj) => {
+  for (let key in obj) if (_has(obj, key)) acc = f(acc, obj[key], key)
+  return acc
+})
+
 // reduceRight : Foldable f => (b -> a -> b) -> b -> f a -> b
 const reduceRight = curry((f, acc, list) =>
   list.reduceRight(f, acc)
@@ -178,6 +221,11 @@ const reduceRight = curry((f, acc, list) =>
 // replace : RegExp -> String -> String -> String
 const replace = curry((regexp, replacement, string) =>
   string.replace(regexp, replacement)
+)
+
+// sort : ((a, a) -> Number) -> [a] -> [a]
+const sort = curry((comp, list) =>
+  list.slice(0).sort(comp)
 )
 
 // tap : (a -> b) -> a -> a
@@ -194,6 +242,9 @@ const thrush = curry((x, f) =>
 const unless = curry((pred, f, x) =>
   pred(x) ? x : f(x)
 )
+
+// values : { k: v } -> [v]
+const values = converge(props, [ keys, identity ])
 
 // when : (a -> Boolean) -> (a -> a) -> a -> a
 const when = curry((pred, f, x) =>
@@ -213,6 +264,23 @@ const compose = unapply(flip(reduceRight(thrush)))
 // pipe : ((a -> b), ..., (y -> z)) -> a -> z
 const pipe = unapply(flip(reduce(thrush)))
 
+// slice : Number -> Number -> [a] -> [a]
+const slice = curry((from, to, list) =>
+  list.slice(from, to)
+)
+
+// head : [a] -> a
+const head = prop(0)
+
+// init : [a] -> [a]
+const init = slice(0, -1)
+
+// last : [a] -> a
+const last = compose(head, slice(-1, void 0))
+
+// tail : [a] -> [a]
+const tail = slice(1, Infinity)
+
 module.exports = {
   add,
   append,
@@ -229,15 +297,23 @@ module.exports = {
   dissoc,
   dissocPath,
   evolve,
+  filter,
   flip,
+  head,
   identity,
+  init,
+  join,
   juxt,
+  keys,
+  last,
   length,
   map,
   mapObj,
   match,
   merge,
   multiply,
+  not,
+  omit,
   partial,
   path,
   pipe,
@@ -245,12 +321,17 @@ module.exports = {
   prop,
   props,
   reduce,
+  reduceObj,
   reduceRight,
   replace,
+  slice,
+  sort,
+  tail,
   tap,
   thrush,
   unapply,
   unless,
+  values,
   when,
   zipObj
 }
