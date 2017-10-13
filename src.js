@@ -191,6 +191,11 @@ const path = curry(([ head, ...tail ], obj) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
 )
 
+// pick : [String] -> { k: v } -> { k: v }
+const pick = curry((keys, obj) =>
+  zipObj(keys, props(keys, obj))
+)
+
 // prepend : a -> [a] -> [a]
 const prepend = curry((head, tail) =>
   concat([ head ], tail)
@@ -333,6 +338,7 @@ module.exports = {
   omit,
   partial,
   path,
+  pick,
   pipe,
   prepend,
   prop,
