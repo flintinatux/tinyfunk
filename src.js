@@ -1,11 +1,19 @@
+// _appendKey : ([k], v, k) -> [k]
+const _appendKey = (keys, val, key) =>
+  append(key, keys)
+
 // _assign : ({ k: v }, { k: v }) -> { k: v }
 const _assign = (a, b) => {
-  for (let key in b) a[key] = b[key]
+  for (let key in b) if (_has(key, b)) a[key] = b[key]
   return a
 }
 
-// _has : ({ k: v }, String) -> Boolean
-const _has = (obj, key) =>
+// _comp : (a, b) -> Number
+const _comp = (a, b) =>
+  a < b ? -1 : b > a ? 1 : 0
+
+// _has : (String, { k: v }) -> Boolean
+const _has = (key, obj) =>
   obj.hasOwnProperty(key)
 
 // _index : ({ k: Number }, String) -> { k: Number }
@@ -15,13 +23,6 @@ const _index = (idx, key) =>
 // _partial : ((* -> a), [*]) -> * -> a
 const _partial = (f, args) =>
   f.bind(null, ...args)
-
-// _xfrm : { k: (v -> v) } -> v -> k -> v
-const _xfrm = curry((xfrms, val, key) => {
-  let f = xfrms[key] || identity
-  if (typeof f === 'object') f = evolve(f)
-  return f(val)
-})
 
 // length : [a] -> Number
 const length = list =>
@@ -45,6 +46,18 @@ const curryN = _curryN(2, _curryN)
 // curry : (* -> a) -> (* -> a)
 const curry = f =>
   curryN(length(f), f)
+
+// _mapPair : (v -> k -> v) -> { k: v } -> v -> k -> { k: v }
+const _mapPair = curry((f, acc, val, key) =>
+  assoc(key, f(val, key), acc)
+)
+
+// _xfrm : { k: (v -> v) } -> v -> k -> v
+const _xfrm = curry((xfrms, val, key) => {
+  let f = xfrms[key] || identity
+  if (typeof f === 'object') f = evolve(f)
+  return f(val)
+})
 
 // add : Number -> Number -> Number
 const add = curry((a, b) =>
@@ -134,24 +147,15 @@ const juxt = curry((fs, x) =>
   map(thrush(x), fs)
 )
 
-// keys : { k: v } -> [k]
-const keys = obj => {
-  const res = []
-  for (let key in obj) if (_has(obj, key)) res.push(key)
-  return res
-}
-
 // map : Functor f => (a -> b) -> f a -> f b
 const map = curry((f, functor) =>
   functor.map(f)
 )
 
 // mapObj : (v -> k -> v) -> { k: v } -> { k: v }
-const mapObj = curry((f, obj) => {
-  const res = {}
-  for (let key in obj) res[key] = f(obj[key], key)
-  return res
-})
+const mapObj = curry((f, obj) =>
+  reduceObj(_mapPair(f), {}, obj)
+)
 
 // match : RegExp -> String -> [String | Undefined]
 const match = curry((regexp, string) =>
@@ -175,7 +179,7 @@ const not = a => !a
 const omit = curry((keys, obj) => {
   const idx = reduce(_index, {}, keys)
   const res = {}
-  for (let key in obj) if (!idx[key]) res[key] = obj[key]
+  for (let key in obj) if (_has(key, obj) && !idx[key]) res[key] = obj[key]
   return res
 })
 
@@ -209,7 +213,7 @@ const reduce = curry((f, acc, list) =>
 
 // reduceObj : (a -> v -> k -> a) -> a -> { k: v } -> a
 const reduceObj = curry((f, acc, obj) => {
-  for (let key in obj) if (_has(obj, key)) acc = f(acc, obj[key], key)
+  for (let key in obj) if (_has(key, obj)) acc = f(acc, obj[key], key)
   return acc
 })
 
@@ -228,6 +232,11 @@ const sort = curry((comp, list) =>
   list.slice(0).sort(comp)
 )
 
+// sortBy : Ord b => (a -> b) -> [a] -> [a]
+const sortBy = curry((f, list) =>
+  sort(useWith(_comp, [ f, f ]), list)
+)
+
 // tap : (a -> b) -> a -> a
 const tap = curry((f, x) =>
   (f(x), x)
@@ -238,13 +247,15 @@ const thrush = curry((x, f) =>
   f(x)
 )
 
+// useWith : (b... -> c) -> [(a -> b)] -> a... -> c
+const useWith = curry((f, xfrms) =>
+  unapply(compose(apply(f), map(_xfrm(xfrms))))
+)
+
 // unless : (a -> Boolean) -> (a -> a) -> a -> a
 const unless = curry((pred, f, x) =>
   pred(x) ? x : f(x)
 )
-
-// values : { k: v } -> [v]
-const values = converge(props, [ keys, identity ])
 
 // when : (a -> Boolean) -> (a -> a) -> a -> a
 const when = curry((pred, f, x) =>
@@ -280,6 +291,12 @@ const last = compose(head, slice(-1, void 0))
 
 // tail : [a] -> [a]
 const tail = slice(1, Infinity)
+
+// keys : { k: v } -> [k]
+const keys = reduceObj(_appendKey, [])
+
+// values : { k: v } -> [v]
+const values = converge(props, [ keys, identity ])
 
 module.exports = {
   add,
@@ -326,11 +343,13 @@ module.exports = {
   replace,
   slice,
   sort,
+  sortBy,
   tail,
   tap,
   thrush,
   unapply,
   unless,
+  useWith,
   values,
   when,
   zipObj
