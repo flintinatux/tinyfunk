@@ -4,17 +4,13 @@ const _appendKey = (keys, val, key) =>
 
 // _assign : ({ k: v }, { k: v }) -> { k: v }
 const _assign = (a, b) => {
-  for (let key in b) if (_has(key, b)) a[key] = b[key]
+  for (let key in b) a[key] = b[key]
   return a
 }
 
 // _comp : (a, b) -> Number
 const _comp = (a, b) =>
   a < b ? -1 : b > a ? 1 : 0
-
-// _has : (String, { k: v }) -> Boolean
-const _has = (key, obj) =>
-  obj.hasOwnProperty(key)
 
 // _index : ({ k: Number }, String) -> { k: Number }
 const _index = (idx, key) =>
@@ -46,11 +42,6 @@ const curryN = _curryN(2, _curryN)
 // curry : (* -> a) -> (* -> a)
 const curry = f =>
   curryN(length(f), f)
-
-// _mapPair : (v -> k -> v) -> { k: v } -> v -> k -> { k: v }
-const _mapPair = curry((f, acc, val, key) =>
-  assoc(key, f(val, key), acc)
-)
 
 // _xfrm : { k: (v -> v) } -> v -> k -> v
 const _xfrm = curry((xfrms, val, key) => {
@@ -153,9 +144,11 @@ const map = curry((f, functor) =>
 )
 
 // mapObj : (v -> k -> v) -> { k: v } -> { k: v }
-const mapObj = curry((f, obj) =>
-  reduceObj(_mapPair(f), {}, obj)
-)
+const mapObj = curry((f, obj) => {
+  const res = {}
+  for (let key in obj) res[key] = f(obj[key], key)
+  return res
+})
 
 // match : RegExp -> String -> [String | Undefined]
 const match = curry((regexp, string) =>
@@ -179,7 +172,7 @@ const not = a => !a
 const omit = curry((keys, obj) => {
   const idx = reduce(_index, {}, keys)
   const res = {}
-  for (let key in obj) if (_has(key, obj) && !idx[key]) res[key] = obj[key]
+  for (let key in obj) if (!idx[key]) res[key] = obj[key]
   return res
 })
 
@@ -218,7 +211,7 @@ const reduce = curry((f, acc, list) =>
 
 // reduceObj : (a -> v -> k -> a) -> a -> { k: v } -> a
 const reduceObj = curry((f, acc, obj) => {
-  for (let key in obj) if (_has(key, obj)) acc = f(acc, obj[key], key)
+  for (let key in obj) acc = f(acc, obj[key], key)
   return acc
 })
 
