@@ -168,6 +168,11 @@ const multiply = curry((a, b) =>
 // not : a -> a
 const not = a => !a
 
+// objOf : k -> v -> { k: v }
+const objOf = curry((key, val) =>
+  ({ [key]: val })
+)
+
 // omit : [String] -> { k: v } -> { k: v }
 const omit = curry((keys, obj) => {
   const idx = reduce(_index, {}, keys)
@@ -328,6 +333,7 @@ module.exports = {
   merge,
   multiply,
   not,
+  objOf,
   omit,
   partial,
   path,
