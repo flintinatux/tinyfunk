@@ -95,6 +95,11 @@ const converge = curry((after, fs) =>
   compose(apply(after), juxt(fs))
 )
 
+// defaultTo : a -> b -> a | b
+const defaultTo = curry((a, b) =>
+  b == null || b !== b ? a : b
+)
+
 // dissoc : String -> { k: v } -> { k: v }
 const dissoc = curry((key, obj) => {
   const res = _assign({}, obj)
@@ -314,6 +319,7 @@ module.exports = {
   converge,
   curry,
   curryN,
+  defaultTo,
   dissoc,
   dissocPath,
   evolve,
