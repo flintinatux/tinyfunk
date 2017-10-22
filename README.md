@@ -75,6 +75,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `converge` | `(b... -> c) -> [(a -> b)] -> a -> c` |
 | `curry` | `(* -> a) -> (* -> a)` |
 | `curryN` | `Number -> (* -> a) -> (* -> a)` |
+| `defaultTo` | `a -> b -> a | b` |
 | `dissoc` | `String -> { k: v } -> { k: v }` |
 | `dissocPath` | `[String] -> { k: v } -> { k: v }` |
 | `evolve` | `{ k: (v -> v) } -> { k: v } -> { k: v }` |
@@ -94,6 +95,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `merge` | `{ k: v } -> { k: v } -> { k: v }` |
 | `multiply` | `Number -> Number -> Number` |
 | `not` | `a -> a` |
+| `objOf` | `k -> v -> { k: v }` |
 | `omit` | `[String] -> { k: v } -> { k: v }` |
 | `partial` | `(* -> a) -> [*] -> * -> a` |
 | `path` | `[String] -> { k: v } -> v` |

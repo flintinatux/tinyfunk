@@ -10,7 +10,7 @@ const _assign = (a, b) => {
 
 // _comp : (a, b) -> Number
 const _comp = (a, b) =>
-  a < b ? -1 : b > a ? 1 : 0
+  a < b ? -1 : b < a ? 1 : 0
 
 // _index : ({ k: Number }, String) -> { k: Number }
 const _index = (idx, key) =>
