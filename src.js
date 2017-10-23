@@ -16,7 +16,7 @@ const _comp = (a, b) =>
 const _index = (idx, key) =>
   assoc(key, 1, idx)
 
-// _partial : ((* -> a), [*]) -> * -> a
+// _partial : ((a... -> b), [a]) -> a... -> b
 const _partial = (f, args) =>
   f.bind(null, ...args)
 
@@ -24,11 +24,11 @@ const _partial = (f, args) =>
 const length = list =>
   list.length
 
-// unapply : ([a] -> b) -> * -> b
+// unapply : ([a] -> b) -> a... -> b
 const unapply = f => (...args) =>
   f(args)
 
-// curryN : Number -> (* -> a) -> (* -> a)
+// curryN : Number -> ((a, b, ...) -> z) -> a -> b -> ... -> z
 const _curryN = (n, f) =>
   n < 1 ? f : unapply(args => {
     const left = n - length(args)
@@ -39,7 +39,7 @@ const _curryN = (n, f) =>
 
 const curryN = _curryN(2, _curryN)
 
-// curry : (* -> a) -> (* -> a)
+// curry : ((a, b, ...) -> z) -> a -> b -> ... -> z
 const curry = f =>
   curryN(length(f), f)
 
@@ -60,24 +60,24 @@ const append = curry((last, init) =>
   concat(init, [ last ])
 )
 
-// apply : (* -> a) -> [*] -> a
+// apply : (a... -> b) -> [a] -> b
 const apply = curry((f, args) =>
   f.apply(null, args)
 )
 
-// assoc : String -> v -> { k: v } -> { k: v }
+// assoc : k -> v -> { k: v } -> { k: v }
 const assoc = curry((prop, val, obj) => {
   const res = _assign({}, obj)
   res[prop] = val
   return res
 })
 
-// assocPath : [String] -> v -> { k: v } -> { k: v }
+// assocPath : [k] -> v -> { k: v } -> { k: v }
 const assocPath = curry(([ head, ...tail ], x, obj) =>
   assoc(head, length(tail) ? assocPath(tail, x, obj[head]) : x, obj)
 )
 
-// call : (* -> a) -> * -> a
+// call : (a... -> b) -> a... -> b
 const call = curryN(2, (f, ...args) =>
   apply(f, args)
 )
@@ -95,19 +95,19 @@ const converge = curry((after, fs) =>
   compose(apply(after), juxt(fs))
 )
 
-// defaultTo : a -> b -> a | b
+// defaultTo : a -> a -> a
 const defaultTo = curry((a, b) =>
   b == null || b !== b ? a : b
 )
 
-// dissoc : String -> { k: v } -> { k: v }
+// dissoc : k -> { k: v } -> { k: v }
 const dissoc = curry((key, obj) => {
   const res = _assign({}, obj)
   delete res[key]
   return res
 })
 
-// dissocPath : [String] -> { k: v } -> { k: v }
+// dissocPath : [k] -> { k: v } -> { k: v }
 const dissocPath = curry(([ head, ...tail ], obj) =>
   !head ? obj :
   obj[head] == null ? obj :
@@ -178,7 +178,7 @@ const objOf = curry((key, val) =>
   ({ [key]: val })
 )
 
-// omit : [String] -> { k: v } -> { k: v }
+// omit : [k] -> { k: v } -> { k: v }
 const omit = curry((keys, obj) => {
   const idx = reduce(_index, {}, keys)
   const res = {}
@@ -186,15 +186,15 @@ const omit = curry((keys, obj) => {
   return res
 })
 
-// partial : (* -> a) -> [*] -> * -> a
+// partial : (a... -> b) -> [a] -> a... -> b
 const partial = curry(_partial)
 
-// path : [String] -> { k: v } -> v
+// path : [k] -> { k: v } -> v
 const path = curry(([ head, ...tail ], obj) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
 )
 
-// pick : [String] -> { k: v } -> { k: v }
+// pick : [k] -> { k: v } -> { k: v }
 const pick = curry((keys, obj) =>
   zipObj(keys, props(keys, obj))
 )
@@ -204,7 +204,7 @@ const prepend = curry((head, tail) =>
   concat([ head ], tail)
 )
 
-// prop : String -> { k: v } -> v
+// prop : k -> { k: v } -> v
 const prop = curry((key, obj) =>
   obj[key]
 )
@@ -250,6 +250,11 @@ const tap = curry((f, x) =>
   (f(x), x)
 )
 
+// then : (a -> Promise b) -> a -> Promise b
+const then = curry((f, x) =>
+  Promise.resolve(x).then(f)
+)
+
 // thrush : a -> (a -> b) -> b
 const thrush = curry((x, f) =>
   f(x)
@@ -280,8 +285,14 @@ const zipObj = curry((keys, vals) => {
 // compose : ((y -> z), ..., (a -> b)) -> a -> z
 const compose = unapply(flip(reduceRight(thrush)))
 
+// composeP : ((y -> Promise z), ..., (a -> Promise b)) -> a -> Promise z
+const composeP = unapply(flip(reduceRight(flip(then))))
+
 // pipe : ((a -> b), ..., (y -> z)) -> a -> z
 const pipe = unapply(flip(reduce(thrush)))
+
+// pipeP : ((a -> Promise b), ..., (y -> Promise z)) -> a -> Promise z
+const pipeP = unapply(flip(reduce(flip(then))))
 
 // slice : Number -> Number -> [a] -> [a]
 const slice = curry((from, to, list) =>
@@ -314,6 +325,7 @@ module.exports = {
   assocPath,
   call,
   compose,
+  composeP,
   concat,
   constant,
   converge,
@@ -345,6 +357,7 @@ module.exports = {
   path,
   pick,
   pipe,
+  pipeP,
   prepend,
   prop,
   props,
@@ -357,6 +370,7 @@ module.exports = {
   sortBy,
   tail,
   tap,
+  then,
   thrush,
   unapply,
   unless,

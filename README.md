@@ -65,19 +65,20 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | -------- | --------- |
 | `add` | `Number -> Number -> Number` |
 | `append` | `a -> [a] -> [a]` |
-| `apply` | `(* -> a) -> [*] -> a` |
-| `assoc` | `String -> v -> { k: v } -> { k: v }` |
-| `assocPath` | `[String] -> v -> { k: v } -> { k: v }` |
-| `call` | `(* -> a) -> * -> a` |
+| `apply` | `(a... -> b) -> [a] -> b` |
+| `assoc` | `k -> v -> { k: v } -> { k: v }` |
+| `assocPath` | `[k] -> v -> { k: v } -> { k: v }` |
+| `call` | `(a... -> b) -> a... -> b` |
 | `compose` | `((y -> z), ..., (a -> b)) -> a -> z` |
+| `composeP` | `((y -> Promise z), ..., (a -> Promise b)) -> a -> Promise z` |
 | `concat` | `Semigroup a => a -> a -> a` |
 | `constant` | `a -> () -> a` |
 | `converge` | `(b... -> c) -> [(a -> b)] -> a -> c` |
-| `curry` | `(* -> a) -> (* -> a)` |
-| `curryN` | `Number -> (* -> a) -> (* -> a)` |
-| `defaultTo` | `a -> b -> a | b` |
-| `dissoc` | `String -> { k: v } -> { k: v }` |
-| `dissocPath` | `[String] -> { k: v } -> { k: v }` |
+| `curry` | `((a, b, ...) -> z) -> a -> b -> ... -> z` |
+| `curryN` | `Number -> ((a, b, ...) -> z) -> a -> b -> ... -> z` |
+| `defaultTo` | `a -> a -> a` |
+| `dissoc` | `k -> { k: v } -> { k: v }` |
+| `dissocPath` | `[k] -> { k: v } -> { k: v }` |
 | `evolve` | `{ k: (v -> v) } -> { k: v } -> { k: v }` |
 | `filter` | `(a -> Boolean) -> [a] -> [a]` |
 | `flip` | `(a -> b -> c) -> (b -> a -> c)` |
@@ -96,13 +97,14 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `multiply` | `Number -> Number -> Number` |
 | `not` | `a -> a` |
 | `objOf` | `k -> v -> { k: v }` |
-| `omit` | `[String] -> { k: v } -> { k: v }` |
-| `partial` | `(* -> a) -> [*] -> * -> a` |
-| `path` | `[String] -> { k: v } -> v` |
-| `pick` | `[String] -> { k: v } -> { k: v }` |
+| `omit` | `[k] -> { k: v } -> { k: v }` |
+| `partial` | `(a... -> b) -> [a] -> a... -> b` |
+| `path` | `[k] -> { k: v } -> v` |
+| `pick` | `[k] -> { k: v } -> { k: v }` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
+| `pipeP` | `((a -> Promise b), ..., (y -> Promise z)) -> a -> Promise z` |
 | `prepend` | `a -> [a] -> [a]` |
-| `prop` | `String -> { k: v } -> v` |
+| `prop` | `k -> { k: v } -> v` |
 | `props` | `[k] -> { k: v } -> [v]` |
 | `reduce` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
 | `reduceObj` | `(a -> v -> k -> a) -> a -> { k: v } -> a` |
@@ -113,8 +115,9 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `sortBy` | `Ord b => (a -> b) -> [a] -> [a]` |
 | `tail` | `[a] -> [a]` |
 | `tap` | `(a -> b) -> a -> a` |
+| `then` | `(a -> Promise b) -> a -> Promise b` |
 | `thrush` | `a -> (a -> b) -> b` |
-| `unapply` | `([a] -> b) -> * -> b` |
+| `unapply` | `([a] -> b) -> a... -> b` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `useWith` | `(b... -> c) -> [(a -> b)] -> a... -> c` |
 | `values` | `{ k: v } -> [v]` |

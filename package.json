@@ -43,6 +43,7 @@
     "gzip-size-cli": "^2.1.0",
     "mocha": "^3.5.3",
     "nyc": "^11.2.1",
+    "prop-factory": "^1.0.0",
     "uglify-es": "^3.1.1"
   }
 }
