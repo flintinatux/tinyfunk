@@ -189,6 +189,11 @@ const omit = curry((keys, obj) => {
 // partial : (a... -> b) -> [a] -> a... -> b
 const partial = curry(_partial)
 
+// partialRight : (a... -> b) -> [a] -> a... -> b
+const partialRight = curryN(3, (f, right, ...left) =>
+  apply(f, concat(left, right))
+)
+
 // path : [k] -> { k: v } -> v
 const path = curry(([ head, ...tail ], obj) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
@@ -354,6 +359,7 @@ module.exports = {
   objOf,
   omit,
   partial,
+  partialRight,
   path,
   pick,
   pipe,
