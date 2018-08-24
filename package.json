@@ -24,7 +24,7 @@
     "branches": 100
   },
   "scripts": {
-    "build": "./node_modules/uglify-es/bin/uglifyjs src.js -cm --toplevel --wrap tinyfunk > tinyfunk.js",
+    "build": "uglifyjs src.js -cm --toplevel --wrap tinyfunk > tinyfunk.js",
     "clean": "rm -f tinyfunk.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint src.js test",
