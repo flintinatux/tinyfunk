@@ -9,12 +9,19 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;"></a>
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;"></a>
-  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.29%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
+  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.31%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
   <br />
   <a href="https://travis-ci.org/flintinatux/tinyfunk"><img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;"></a>
   <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master"><img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;"></a>
   <a href="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d"><img src="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge" alt="NSP Status" style="max-width:100%;"></a>
 </p>
+
+## Documentation
+
+- [Motivation](#motivation)
+- [Caveat Emptor](#caveat-emptor)
+- [API](#api)
+- [Dependents](#dependents)
 
 ## Motivation
 
@@ -124,3 +131,9 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `values` | `{ k: v } -> [v]` |
 | `when` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `zipObj` | `[k] -> [v] -> { k: v }` |
+
+## Dependents
+
+I use `tinyfunk` everyday to make cool things.  Maybe you do, too.  If so, let me know with a PR, and we can add your cool things to this list.
+
+- [`puddles`](https://github.com/flintinatux/puddles) - _Tiny vdom app framework. Pure Redux. No boilerplate._ - Built with ❤️ on `tinyfunk`.

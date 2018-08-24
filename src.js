@@ -342,7 +342,7 @@ const keys = reduceObj(_appendKey, [])
 // values :: { k: v } -> [v]
 const values = converge(props, [ keys, identity ])
 
-module.exports = {
+_assign(exports, {
   add,
   append,
   apply,
@@ -408,4 +408,4 @@ module.exports = {
   values,
   when,
   zipObj
-}
+})
