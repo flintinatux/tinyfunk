@@ -12,4 +12,9 @@ describe('path', () => {
   it('is curried', () =>
     expect(path(['foo', 'bar'])(obj)).to.equal('baz')
   )
+
+  it('returns undefined if part of the path is missing', () => {
+    expect(path(['foo', 'bar'], undefined)).to.be.undefined
+    expect(path(['bar', 'foo'], obj)).to.be.undefined
+  })
 })
