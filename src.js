@@ -205,7 +205,7 @@ const partialRight = curryN(3, (f, right, ...left) =>
 )
 
 // path :: [k] -> { k: v } -> v
-const path = curry(([ head, ...tail ], obj) =>
+const path = curryN(2, ([ head, ...tail ], obj={}) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
 )
 
