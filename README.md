@@ -79,6 +79,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `compose` | `((y -> z), ..., (a -> b)) -> a -> z` |
 | `composeP` | `((y -> Promise z), ..., (a -> Promise b)) -> a -> Promise z` |
 | `concat` | `Semigroup a => a -> a -> a` |
+| `cond` | `[[(a -> Boolean), (a -> b)]] -> a -> b` |
 | `constant` | `a -> () -> a` |
 | `converge` | `(b... -> c) -> [(a -> b)] -> a -> c` |
 | `curry` | `((a, b, ...) -> z) -> a -> b -> ... -> z` |
@@ -91,7 +92,9 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `flip` | `(a -> b -> c) -> (b -> a -> c)` |
 | `head` | `[a] -> a` |
 | `identity` | `a -> a` |
+| `ifElse` | `(a -> Boolean) -> (a -> b) -> (a -> b) -> (a -> b)` |
 | `init` | `[a] -> [a]` |
+| `is` | `Constructor -> a -> Boolean` |
 | `join` | `String -> [a] -> String` |
 | `juxt` | `[(a -> b)] -> a -> [b]` |
 | `keys` | `{ k: v } -> [k]` |
@@ -108,11 +111,13 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `partial` | `(a... -> b) -> [a] -> a... -> b` |
 | `partialRight` | `(a... -> b) -> [a] -> a... -> b` |
 | `path` | `[k] -> { k: v } -> v` |
+| `pathEq` | `[k] -> v -> { k: v } -> Boolean` |
 | `pick` | `[k] -> { k: v } -> { k: v }` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
 | `pipeP` | `((a -> Promise b), ..., (y -> Promise z)) -> a -> Promise z` |
 | `prepend` | `a -> [a] -> [a]` |
 | `prop` | `k -> { k: v } -> v` |
+| `propEq` | `k -> v -> { k: v } -> Boolean` |
 | `props` | `[k] -> { k: v } -> [v]` |
 | `reduce` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
 | `reduceObj` | `(a -> v -> k -> a) -> a -> { k: v } -> a` |
@@ -121,11 +126,13 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `slice` | `Number -> Number -> [a] -> [a]` |
 | `sort` | `((a, a) -> Number) -> [a] -> [a]` |
 | `sortBy` | `Ord b => (a -> b) -> [a] -> [a]` |
+| `split` | `RegExp -> String -> [String]` |
 | `tail` | `[a] -> [a]` |
 | `tap` | `(a -> b) -> a -> a` |
 | `then` | `(a -> Promise b) -> a -> Promise b` |
 | `thrush` | `a -> (a -> b) -> b` |
 | `unapply` | `([a] -> b) -> a... -> b` |
+| `unit` | `a -> ()` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `useWith` | `(b... -> c) -> [(a -> b)] -> a... -> c` |
 | `values` | `{ k: v } -> [v]` |

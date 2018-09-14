@@ -165,7 +165,7 @@ const mapObj = curry((f, obj) => {
   return res
 })
 
-// match :: RegExp -> String -> [String | Undefined]
+// match :: RegExp -> String -> [String]
 const match = curry((regexp, string) =>
   string.match(regexp) || []
 )
@@ -207,6 +207,11 @@ const partialRight = curryN(3, (f, right, ...left) =>
 // path :: [k] -> { k: v } -> v
 const path = curryN(2, ([ head, ...tail ], obj={}) =>
   length(tail) ? path(tail, obj[head]) : obj[head]
+)
+
+// pathEq :: [k] -> v -> { k: v } -> Boolean
+const pathEq = curry((paths, val, obj) =>
+  path(paths, obj) === val
 )
 
 // pick :: [k] -> { k: v } -> { k: v }
@@ -285,14 +290,17 @@ const thrush = curry((x, f) =>
   f(x)
 )
 
-// useWith :: (b... -> c) -> [(a -> b)] -> a... -> c
-const useWith = curry((f, xfrms) =>
-  unapply(compose(apply(f), map(_xfrm(xfrms))))
-)
+// unit :: a -> ()
+const unit = Function.prototype
 
 // unless :: (a -> Boolean) -> (a -> a) -> a -> a
 const unless = curry((pred, f, x) =>
   pred(x) ? x : f(x)
+)
+
+// useWith :: (b... -> c) -> [(a -> b)] -> a... -> c
+const useWith = curry((f, xfrms) =>
+  unapply(compose(apply(f), map(_xfrm(xfrms))))
 )
 
 // when :: (a -> Boolean) -> (a -> a) -> a -> a
@@ -318,6 +326,9 @@ const pipe = unapply(flip(reduce(thrush)))
 
 // pipeP :: ((a -> Promise b), ..., (y -> Promise z)) -> a -> Promise z
 const pipeP = unapply(flip(reduce(flip(then))))
+
+// cond :: [[(a -> Boolean), (a -> b)]] -> a -> b
+const cond = compose(reduceRight(thrush, unit), map(apply(ifElse)))
 
 // slice :: Number -> Number -> [a] -> [a]
 const slice = curry((from, to, list) =>
@@ -352,6 +363,7 @@ _assign(exports, {
   compose,
   composeP,
   concat,
+  cond,
   constant,
   converge,
   curry,
@@ -383,6 +395,7 @@ _assign(exports, {
   partial,
   partialRight,
   path,
+  pathEq,
   pick,
   pipe,
   pipeP,
