@@ -291,7 +291,7 @@ const thrush = curry((x, f) =>
 )
 
 // unit :: a -> ()
-const unit = Function.prototype
+const unit = () => {}
 
 // unless :: (a -> Boolean) -> (a -> a) -> a -> a
 const unless = curry((pred, f, x) =>
@@ -416,6 +416,7 @@ _assign(exports, {
   then,
   thrush,
   unapply,
+  unit,
   unless,
   useWith,
   values,
