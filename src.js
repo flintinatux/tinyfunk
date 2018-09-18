@@ -255,9 +255,19 @@ const reduceObj = curry((f, acc, obj) => {
   return acc
 })
 
+// reduceP :: (b -> a -> Promise b) -> b -> [a] -> Promise b
+const reduceP = curry((f, acc, list) =>
+  pipeP(...map(unary(flip(f)), list))(acc)
+)
+
 // reduceRight :: Foldable f => (b -> a -> b) -> b -> f a -> b
 const reduceRight = curry((f, acc, list) =>
   list.reduceRight(f, acc)
+)
+
+// reduceRightP :: (b -> a -> Promise b) -> b -> [a] -> Promise b
+const reduceRightP = curry((f, acc, list) =>
+  composeP(...map(unary(flip(f)), list))(acc)
 )
 
 // replace :: RegExp -> String -> String -> String
@@ -417,7 +427,9 @@ _assign(exports, {
   props,
   reduce,
   reduceObj,
+  reduceP,
   reduceRight,
+  reduceRightP,
   replace,
   slice,
   sort,
