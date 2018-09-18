@@ -180,6 +180,11 @@ const multiply = curry((a, b) =>
   a * b
 )
 
+// nAry :: Number -> (a... -> b) -> (a... -> b)
+const nAry = curry((n, f) =>
+  unapply(compose(apply(f), take(n)))
+)
+
 // not :: a -> a
 const not = a => !a
 
@@ -290,6 +295,9 @@ const thrush = curry((x, f) =>
   f(x)
 )
 
+// unary :: (a... -> b) -> (a -> b)
+const unary = nAry(1)
+
 // unit :: a -> ()
 const unit = () => {}
 
@@ -347,6 +355,9 @@ const last = compose(head, slice(-1, void 0))
 // tail :: [a] -> [a]
 const tail = slice(1, Infinity)
 
+// take :: Number -> [a] -> [a]
+const take = slice(0)
+
 // keys :: { k: v } -> [k]
 const keys = reduceObj(_appendKey, [])
 
@@ -389,6 +400,7 @@ _assign(exports, {
   match,
   merge,
   multiply,
+  nAry,
   not,
   objOf,
   omit,
@@ -412,10 +424,12 @@ _assign(exports, {
   sortBy,
   split,
   tail,
+  take,
   tap,
   then,
   thrush,
   unapply,
+  unary,
   unit,
   unless,
   useWith,
