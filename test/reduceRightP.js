@@ -14,6 +14,6 @@ describe('reduceRightP', () => {
   )
 
   it('reduces a list RTL with an async reducer', () =>
-    expect(res()).to.equal('43210')
+    expect(res()).to.equal('04321')
   )
 })
