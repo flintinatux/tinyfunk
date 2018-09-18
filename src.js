@@ -125,6 +125,11 @@ const filter = curry((pred, list) =>
   list.filter(pred)
 )
 
+// find :: (a -> Boolean) -> [a] -> a
+const find = curry((pred, list) =>
+  list.find(pred)
+)
+
 // flip :: (a -> b -> c) -> (b -> a -> c)
 const flip = curry((f, x, y) =>
   curry(f)(y, x)
@@ -394,6 +399,7 @@ _assign(exports, {
   dissocPath,
   evolve,
   filter,
+  find,
   flip,
   head,
   identity,
