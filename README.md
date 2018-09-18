@@ -125,7 +125,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `reduceObj` | `(a -> v -> k -> a) -> a -> { k: v } -> a` |
 | `reduceP` | `(b -> a -> Promise b) -> b -> [a] -> Promise b` |
 | `reduceRight` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
-| `reduceRight` | `(b -> a -> Promise b) -> b -> [a] -> Promise b` |
+| `reduceRightP` | `(b -> a -> Promise b) -> b -> [a] -> Promise b` |
 | `replace` | `RegExp -> String -> String -> String` |
 | `slice` | `Number -> Number -> [a] -> [a]` |
 | `sort` | `((a, a) -> Number) -> [a] -> [a]` |
