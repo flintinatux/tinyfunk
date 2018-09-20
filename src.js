@@ -353,6 +353,11 @@ const pipeP = unapply(flip(reduce(flip(then))))
 // cond :: [[(a -> Boolean), (a -> b)]] -> a -> b
 const cond = compose(reduceRight(thrush, unit), map(apply(ifElse)))
 
+// pluck :: k -> [{ k: v }] -> [v]
+const pluck = curry((key, list) =>
+  map(prop(key), list)
+)
+
 // slice :: Number -> Number -> [a] -> [a]
 const slice = curry((from, to, list) =>
   list.slice(from, to)
@@ -427,6 +432,7 @@ _assign(exports, {
   pick,
   pipe,
   pipeP,
+  pluck,
   prepend,
   prop,
   propEq,
