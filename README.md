@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;"></a>
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;"></a>
-  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.32%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
+  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.45%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
   <br />
   <a href="https://travis-ci.org/flintinatux/tinyfunk"><img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;"></a>
   <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master"><img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;"></a>
@@ -79,6 +79,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `compose` | `((y -> z), ..., (a -> b)) -> a -> z` |
 | `composeP` | `((y -> Promise z), ..., (a -> Promise b)) -> a -> Promise z` |
 | `concat` | `Semigroup a => a -> a -> a` |
+| `cond` | `[[(a -> Boolean), (a -> b)]] -> a -> b` |
 | `constant` | `a -> () -> a` |
 | `converge` | `(b... -> c) -> [(a -> b)] -> a -> c` |
 | `curry` | `((a, b, ...) -> z) -> a -> b -> ... -> z` |
@@ -88,10 +89,13 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `dissocPath` | `[k] -> { k: v } -> { k: v }` |
 | `evolve` | `{ k: (v -> v) } -> { k: v } -> { k: v }` |
 | `filter` | `(a -> Boolean) -> [a] -> [a]` |
+| `find` | `(a -> Boolean) -> [a] -> a` |
 | `flip` | `(a -> b -> c) -> (b -> a -> c)` |
 | `head` | `[a] -> a` |
 | `identity` | `a -> a` |
+| `ifElse` | `(a -> Boolean) -> (a -> b) -> (a -> b) -> (a -> b)` |
 | `init` | `[a] -> [a]` |
+| `is` | `Constructor -> a -> Boolean` |
 | `join` | `String -> [a] -> String` |
 | `juxt` | `[(a -> b)] -> a -> [b]` |
 | `keys` | `{ k: v } -> [k]` |
@@ -102,30 +106,40 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `match` | `RegExp -> String -> [String]` |
 | `merge` | `{ k: v } -> { k: v } -> { k: v }` |
 | `multiply` | `Number -> Number -> Number` |
+| `nAry` | `Number -> (a... -> b) -> (a... -> b)` |
 | `not` | `a -> a` |
 | `objOf` | `k -> v -> { k: v }` |
 | `omit` | `[k] -> { k: v } -> { k: v }` |
 | `partial` | `(a... -> b) -> [a] -> a... -> b` |
 | `partialRight` | `(a... -> b) -> [a] -> a... -> b` |
 | `path` | `[k] -> { k: v } -> v` |
+| `pathEq` | `[k] -> v -> { k: v } -> Boolean` |
 | `pick` | `[k] -> { k: v } -> { k: v }` |
 | `pipe` | `((a -> b), ..., (y -> z)) -> a -> z` |
 | `pipeP` | `((a -> Promise b), ..., (y -> Promise z)) -> a -> Promise z` |
+| `pluck` | `k -> [{ k: v }] -> [v]` |
 | `prepend` | `a -> [a] -> [a]` |
 | `prop` | `k -> { k: v } -> v` |
+| `propEq` | `k -> v -> { k: v } -> Boolean` |
 | `props` | `[k] -> { k: v } -> [v]` |
 | `reduce` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
 | `reduceObj` | `(a -> v -> k -> a) -> a -> { k: v } -> a` |
+| `reduceP` | `(b -> a -> Promise b) -> b -> [a] -> Promise b` |
 | `reduceRight` | `Foldable f => (b -> a -> b) -> b -> f a -> b` |
+| `reduceRightP` | `(b -> a -> Promise b) -> b -> [a] -> Promise b` |
 | `replace` | `RegExp -> String -> String -> String` |
 | `slice` | `Number -> Number -> [a] -> [a]` |
 | `sort` | `((a, a) -> Number) -> [a] -> [a]` |
 | `sortBy` | `Ord b => (a -> b) -> [a] -> [a]` |
+| `split` | `RegExp -> String -> [String]` |
 | `tail` | `[a] -> [a]` |
+| `take` | `Number -> [a] -> [a]` |
 | `tap` | `(a -> b) -> a -> a` |
 | `then` | `(a -> Promise b) -> a -> Promise b` |
 | `thrush` | `a -> (a -> b) -> b` |
 | `unapply` | `([a] -> b) -> a... -> b` |
+| `unary` | `(a... -> b) -> (a -> b)` |
+| `unit` | `a -> ()` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `useWith` | `(b... -> c) -> [(a -> b)] -> a... -> c` |
 | `values` | `{ k: v } -> [v]` |
