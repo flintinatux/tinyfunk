@@ -386,7 +386,7 @@ const take = slice(0)
 const keys = reduceObj(_appendKey, [])
 
 // values :: { k: v } -> [v]
-const values = converge(props, [ keys, identity ])
+const values = reduceObj(flip(append), [])
 
 // indexBy :: (v -> k) -> [v] -> { k: v }
 const indexBy = curry((f, list) =>
