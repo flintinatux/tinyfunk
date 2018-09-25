@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;"></a>
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;"></a>
-  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.45%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
+  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.49%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
   <br />
   <a href="https://travis-ci.org/flintinatux/tinyfunk"><img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;"></a>
   <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master"><img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;"></a>
@@ -94,6 +94,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `head` | `[a] -> a` |
 | `identity` | `a -> a` |
 | `ifElse` | `(a -> Boolean) -> (a -> b) -> (a -> b) -> (a -> b)` |
+| `indexBy` | `(v -> k) -> [v] -> { k: v }` |
 | `init` | `[a] -> [a]` |
 | `is` | `Constructor -> a -> Boolean` |
 | `join` | `String -> [a] -> String` |
@@ -139,6 +140,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `thrush` | `a -> (a -> b) -> b` |
 | `unapply` | `([a] -> b) -> a... -> b` |
 | `unary` | `(a... -> b) -> (a -> b)` |
+| `uniqBy` | `(a -> String) -> [a] -> [a]` |
 | `unit` | `a -> ()` |
 | `unless` | `(a -> Boolean) -> (a -> a) -> a -> a` |
 | `useWith` | `(b... -> c) -> [(a -> b)] -> a... -> c` |
