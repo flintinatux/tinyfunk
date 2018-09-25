@@ -20,6 +20,10 @@ const _index = (idx, key) =>
 const _partial = (f, args) =>
   f.bind(null, ...args)
 
+// _putBy :: (v -> k) -> { k: v } -> v -> { k: v }
+const _putBy = f => (acc, item) =>
+  assoc(f(item), item, acc)
+
 // length :: [a] -> Number
 const length = list =>
   list.length
@@ -384,6 +388,16 @@ const keys = reduceObj(_appendKey, [])
 // values :: { k: v } -> [v]
 const values = converge(props, [ keys, identity ])
 
+// indexBy :: (v -> k) -> [v] -> { k: v }
+const indexBy = curry((f, list) =>
+  reduce(_putBy(f), {}, list)
+)
+
+// uniqBy :: (a -> String) -> [a] -> [a]
+const uniqBy = curry((f, list) =>
+  compose(values, indexBy(f))(list)
+)
+
 _assign(exports, {
   add,
   append,
@@ -409,6 +423,7 @@ _assign(exports, {
   head,
   identity,
   ifElse,
+  indexBy,
   init,
   is,
   join,
@@ -454,6 +469,7 @@ _assign(exports, {
   thrush,
   unapply,
   unary,
+  uniqBy,
   unit,
   unless,
   useWith,
