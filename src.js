@@ -24,6 +24,10 @@ const _partial = (f, args) =>
 const _putBy = f => (acc, item) =>
   assoc(f(item), item, acc)
 
+// _smash :: ([a], a) -> [b]
+const _smash = (acc, item) =>
+  concat(acc, flatten(item))
+
 // length :: [a] -> Number
 const length = list =>
   list.length
@@ -357,6 +361,10 @@ const pipeP = unapply(flip(reduce(flip(then))))
 // cond :: [[(a -> Boolean), (a -> b)]] -> a -> b
 const cond = compose(reduceRight(thrush, unit), map(apply(ifElse)))
 
+// flatten :: [a] -> [b]
+const flatten =
+  when(Array.isArray, reduce(_smash, []))
+
 // pluck :: k -> [{ k: v }] -> [v]
 const pluck = curry((key, list) =>
   map(prop(key), list)
@@ -419,6 +427,7 @@ _assign(exports, {
   evolve,
   filter,
   find,
+  flatten,
   flip,
   head,
   identity,
