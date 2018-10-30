@@ -9,11 +9,10 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/v/tinyfunk.svg" alt="npm version" style="max-width:100%;"></a>
   <a href="https://www.npmjs.com/package/tinyfunk"><img src="https://img.shields.io/npm/dm/tinyfunk.svg" alt="npm downloads" style="max-width:100%;"></a>
-  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.52%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
+  <a href="#"><img src="https://img.shields.io/badge/gzip--size-1.53%20kB-blue.svg" alt="gzip-size" style="max-width:100%;"></a>
   <br />
   <a href="https://travis-ci.org/flintinatux/tinyfunk"><img src="https://travis-ci.org/flintinatux/tinyfunk.svg?branch=master" alt="Build Status" style="max-width:100%;"></a>
   <a href="https://coveralls.io/github/flintinatux/tinyfunk?branch=master"><img src="https://coveralls.io/repos/github/flintinatux/tinyfunk/badge.svg?branch=master" alt="Coverage Status" style="max-width:100%;"></a>
-  <a href="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d"><img src="https://nodesecurity.io/orgs/flintinatux/projects/d5f96f7c-898a-4244-a9d2-4f3c429d5f3d/badge" alt="NSP Status" style="max-width:100%;"></a>
 </p>
 
 ## Documentation
@@ -137,6 +136,7 @@ If you've lived with FP long enough, you are likely familiar with most of the fu
 | `tail` | `[a] -> [a]` |
 | `take` | `Number -> [a] -> [a]` |
 | `tap` | `(a -> b) -> a -> a` |
+| `test` | `RegExp -> String -> Boolean` |
 | `then` | `(a -> Promise b) -> a -> Promise b` |
 | `thrush` | `a -> (a -> b) -> b` |
 | `unapply` | `([a] -> b) -> a... -> b` |

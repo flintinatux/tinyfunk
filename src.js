@@ -308,6 +308,11 @@ const tap = curry((f, x) =>
   (f(x), x)
 )
 
+// test :: RegExp -> String -> Boolean
+const test = curry((regexp, string) =>
+  regexp.test(string)
+)
+
 // then :: (a -> Promise b) -> a -> Promise b
 const then = curry((f, x) =>
   Promise.resolve(x).then(f)
@@ -474,6 +479,7 @@ _assign(exports, {
   tail,
   take,
   tap,
+  test,
   then,
   thrush,
   unapply,
