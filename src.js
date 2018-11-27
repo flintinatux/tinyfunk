@@ -123,6 +123,11 @@ const dissocPath = curry(([ head, ...tail ], obj) =>
   dissoc(head, obj)
 )
 
+// either :: (a -> Boolean) -> (a -> Boolean) -> (a -> Boolean)
+const either = curry((f, g, x) =>
+  f(x) || g(x)
+)
+
 // evolve :: { k: (v -> v) } -> { k: v } -> { k: v }
 const evolve = curry((xfrms, obj) => {
   return mapObj(_xfrm(xfrms), obj)
@@ -429,6 +434,7 @@ _assign(exports, {
   defaultTo,
   dissoc,
   dissocPath,
+  either,
   evolve,
   filter,
   find,
