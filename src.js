@@ -81,7 +81,7 @@ const assoc = curry((prop, val, obj) => {
 })
 
 // assocPath :: [k] -> v -> { k: v } -> { k: v }
-const assocPath = curry(([ head, ...tail ], x, obj) =>
+const assocPath = curryN(3, ([ head, ...tail ], x, obj={}) =>
   assoc(head, length(tail) ? assocPath(tail, x, obj[head]) : x, obj)
 )
 
