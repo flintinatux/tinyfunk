@@ -1,6 +1,6 @@
 {
   "name": "tinyfunk",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "The tiniest of functional libraries",
   "repository": "git@github.com:flintinatux/tinyfunk.git",
   "keywords": [
