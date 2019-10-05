@@ -13,4 +13,8 @@ describe('zipObj', () => {
   it('is curried', () =>
     expect(zipObj(keys)(vals)).to.eql({ foo: 1, bar: 2 })
   )
+
+  it('does not include a key when val is undefined', () =>
+    expect(zipObj(keys, [ 1, undefined ])).to.eql({ foo: 1 })
+  )
 })
