@@ -13,8 +13,9 @@ describe('path', () => {
     expect(path(['foo', 'bar'])(obj)).to.equal('baz')
   )
 
-  it('returns undefined if part of the path is missing', () => {
+  it('returns undefined if part of the path is undefined or null', () => {
     expect(path(['foo', 'bar'], undefined)).to.be.undefined
     expect(path(['bar', 'foo'], obj)).to.be.undefined
+    expect(path(['bar', 'foo'], { bar: null })).to.be.undefined
   })
 })
